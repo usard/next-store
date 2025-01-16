@@ -1,11 +1,11 @@
-'use client';
+// 'use client';
 import Container from '../global/Container';
 import Logo from './Logo';
 import NavSearch from './NavSearch';
 import CartButton from './CartButton';
 import DarkMode from './DarkMode' 
 import LinksDropdown from './LinksDropdown';
-import {useState, useEffect} from 'react';
+// import {useState, useEffect} from 'react';
 import  UserIcon  from './UserIcon';
 import { Suspense } from 'react';
 
@@ -16,20 +16,20 @@ import { Suspense } from 'react';
 // }
 
 function Navbar() {
-  const [isMobile, setIsMobile] = useState(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
+  // const [isMobile, setIsMobile] = useState(/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
   
-  useEffect(()=>{
-      const handleResize = () => {
-          setIsMobile(window.innerWidth < 768)
-      }
+  // useEffect(()=>{
+  //     const handleResize = () => {
+  //         setIsMobile(window.innerWidth < 768)
+  //     }
 
-      window.addEventListener('resize', handleResize)
+  //     window.addEventListener('resize', handleResize)
 
-      return (()=>{
-          window.removeEventListener('resize', handleResize)
-      })
+  //     return (()=>{
+  //         window.removeEventListener('resize', handleResize)
+  //     })
 
-  },[])
+  // },[])
 
   return (
     <nav className='border-b'> 

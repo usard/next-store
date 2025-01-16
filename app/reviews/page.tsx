@@ -4,4 +4,4 @@ function ReviewsPage() {
   )
 }
 
-export default ReviewsPage
+export default ReviewsPage;

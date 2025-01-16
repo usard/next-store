@@ -79,3 +79,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
     "typescript": "^5"
   }
 }
+
+
+we cannot use a server component inside a client component 
+but we can use a client component inside serevr component 
