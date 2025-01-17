@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react'
 import { actionFunction } from '@/utils/types';
 import { useFormState } from 'react-dom';

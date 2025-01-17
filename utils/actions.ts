@@ -5,11 +5,19 @@ import { redirect } from 'next/navigation';
 import {imageSchema, ProductSchema} from '@/utils/schemas';
 import { validateWithZodSchema } from '@/utils/schemas';
 import { uploadImage } from './supabase';
+import { revalidatePath } from 'next/cache';
 
 // const user = await currentUser();
 const getAuthUser= async () =>{
     const user = await currentUser();
     if (!user) redirect('/');
+    return user;
+}
+
+const getAdminUser = async() => {
+    const user = await getAuthUser();
+    console.log(user?.id == process.env.ADMIN_USER)
+    if(user?.id !== process.env.ADMIN_USER) redirect('/')
     return user;
 }
 
@@ -88,7 +96,7 @@ export const productCreateAction = async (prevState:any, formData:FormData): Pro
                 }
             }
         )
-
+        revalidatePath('/admin/products')
         return {message: 'product created successfully'}
     }
     catch(error) {
@@ -106,3 +114,33 @@ export const productCreateAction = async (prevState:any, formData:FormData): Pro
 //     }
 //     return product;
 //   };
+
+export const fetchAdminProducts = async() => {
+    await getAdminUser();
+
+    const products = await db.productProfile.findMany({
+        orderBy:{
+            createdAt: 'desc',
+        }
+    })
+
+    return products;
+}
+
+export const deleteProductAction = async(prevState:{id:string}) => {
+    await getAdminUser();
+    const {id} = prevState;
+    try{
+
+        await db.productProfile.delete({
+            where:{
+                id: id
+            }
+        })
+        revalidatePath('/admin/products')
+        return {message: 'product removed'}
+    }
+    catch(error){
+        return renderError(error)
+    }
+}
