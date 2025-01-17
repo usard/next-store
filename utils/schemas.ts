@@ -1,7 +1,7 @@
-import {z} from 'zod';
+import {z, ZodSchema} from 'zod';
 export const ProductSchema = z.object({
     name: z.string().min(3),
-    company: z.string().min(9),
+    company: z.string(),
     price: z.coerce.number().int(),
     description: z.string().refine((description)=>{
         console.log(description.split(' '));
@@ -13,3 +13,41 @@ export const ProductSchema = z.object({
     }),
     featured: z.coerce.boolean(),
 });
+
+// const validateImageFile =()=>{
+//     const maxUploadSize = 1024*1024;
+//     const acceptedFileTypes = ['image/'];
+//     return z.instanceof(File).refine((file)=>{
+//         return !file || file.size <=maxUploadSize
+//     }, 'file must be less than or 1MB').refine((file)=> {
+//         return !file || acceptedFileTypes.some((type)=> file.type.startsWith(type))
+//     }, 'file must be of image type')
+// }
+
+function validateImageFile() {
+  const maxUploadSize = 1024 * 1024;
+  const acceptedFileTypes = ['image/'];
+  return z
+    .instanceof(File)
+    .refine((file) => {
+      return !file || file.size <= maxUploadSize;
+    }, 'File size must be less than 1MB')
+    .refine((file) => {
+      return (
+        !file || acceptedFileTypes.some((type) => file.type.startsWith(type))
+      );
+    }, 'File must be an image');
+}
+
+
+export const imageSchema = z.object({
+    image: validateImageFile()   
+})
+
+export function validateWithZodSchema<T>(schema: ZodSchema<T>, data: unknown): T {
+    const result = schema.safeParse(data);
+    const errors = result.error?.errors.map((error)=> error.message).join(', ');
+    if(!result.success) throw new Error(errors)
+    
+    return result.data
+}

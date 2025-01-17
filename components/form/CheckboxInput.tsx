@@ -11,7 +11,7 @@ function CheckboxInput({name, labelText, defaultChecked=false}: checkboxInputPro
 
   return (
     <div className='mb-2 flex flex-wrap gap-3 items-center'>
-        <Checkbox id={name} defaultChecked={defaultChecked}  />
+        <Checkbox id={name} name={name} defaultChecked={defaultChecked}  />
         <Label htmlFor={name}>{labelText}</Label>
     </div>
   )

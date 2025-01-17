@@ -2,9 +2,9 @@
 import db from '@/utils/db';
 import { currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import {ProductSchema} from '@/utils/schemas';
-import { ZodError } from 'zod';
-import { error } from 'console';
+import {imageSchema, ProductSchema} from '@/utils/schemas';
+import { validateWithZodSchema } from '@/utils/schemas';
+import { uploadImage } from './supabase';
 
 // const user = await currentUser();
 const getAuthUser= async () =>{
@@ -74,20 +74,20 @@ export const productCreateAction = async (prevState:any, formData:FormData): Pro
    const user = await getAuthUser();
     try {
         const rawData = Object.fromEntries(formData);
-        const validatedFields = ProductSchema.safeParse(rawData);
-        if(!validatedFields.success) {
-           const errors = validatedFields.error.errors.map((error)=> {
-                return error.message
-            })
-            throw new Error(errors.join(','));
-        }
+        const image = formData.get('image') as File;
+        const validatedFields = validateWithZodSchema(ProductSchema, rawData );
+        const validateImage = validateWithZodSchema(imageSchema,  {image: image});
+        const fullPath = await uploadImage(validateImage.image)
 
-
-        // await db.productProfile.create(    
-        //     {
-        //         data: {...rawData}
-        //     }
-        // )
+        await db.productProfile.create(    
+            {
+                data: {
+                    ...validatedFields,
+                    image: fullPath,
+                    clerkId: user.id
+                }
+            }
+        )
 
         return {message: 'product created successfully'}
     }
