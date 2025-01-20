@@ -13,3 +13,10 @@ export const uploadImage = async(image:File) => {
     console.log(supabase.storage.from(bucket).getPublicUrl(newName).data.publicUrl);
     return supabase.storage.from(bucket).getPublicUrl(newName).data.publicUrl;
 }
+
+export const deleteImage = async(url:string) => {
+    console.log('to delete image url :', url)
+    const imageFileName = url.split('/').pop();
+    if(!imageFileName) throw new Error('invalid image url');
+    await supabase.storage.from(bucket).remove([imageFileName])
+}

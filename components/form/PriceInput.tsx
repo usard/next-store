@@ -13,7 +13,7 @@ function PriceInput({name, labelText, defaultValue}:priceInputProps) {
   return (
     <div className='mb-2'>
         <Label htmlFor={name} className='text-md capitalize'>{labelText}</Label>
-        <Input type='number' min={0} max={defaultValue || 100000} name={name} />
+        <Input type='number' min={0} max={100000} name={name} defaultValue={defaultValue}/>
     </div>
   )
 }

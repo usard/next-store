@@ -25,6 +25,7 @@ function CreateProductsPage() {
             <TextAreaInput className='mb-6' 
                   name='description' 
                   labelText='description' 
+                  defaultValue=''
             />
             <div >
                 <CheckboxInput labelText='featured' name='featured' />

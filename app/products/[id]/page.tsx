@@ -15,7 +15,7 @@ async function SingleProductPage({params}:{params:{id:string}}) {
 
   return (
     <section>
-        <BreadCrumbsHolder />
+        <BreadCrumbsHolder name={name} />
         <div className='grid md:grid-cols-2 md:gap-x-10'>
             <div className="relative p-4 overflow-hidden h-56 min-w-48 w-full md:h-48" >
                 <Image src={image} alt={name} fill className="object-cover rounded-lg"/> 

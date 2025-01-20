@@ -65,11 +65,11 @@ async function AdminProductsPage() {
                     <TableCell>{formatCurrency(item.price)}</TableCell>
                     <TableCell>
                       <div className='flex items-center gap-x-4 cursor-pointer'>
-                        <Button type='button' variant='outline' asChild>
+                        {/* <Button type='button' variant='outline' asChild> */}
                           <Link href={`/admin/products/${item.id}/edit`}>
                             <IconButton actionType='edit' />
                           </Link>
-                        </Button>
+                        {/* </Button> */}
                         <DeleteButton productId={item.id} deleteProductAction={deleteProductAction}/> 
                       </div>
                     </TableCell>
