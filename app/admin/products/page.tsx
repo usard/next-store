@@ -84,7 +84,6 @@ async function AdminProductsPage() {
 }
 
 const DeleteButton = ({productId, deleteProductAction}:{productId:string, deleteProductAction: actionFunction}) => {
-  console.log('product id :', productId)
   const id = productId;
   const deleteProduct = deleteProductAction.bind(null, {id})
   return (

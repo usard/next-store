@@ -83,3 +83,11 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 we cannot use a server component inside a client component 
 but we can use a client component inside serevr component 
+
+
+Error: Server Functions cannot be called during initial render. This would create a fetch waterfall. Try to use a Server Component to pass data to Client Components instead.
+
+sol: in a client component dont fetch data from server action this would lead to this error
+instead fetch data in a server component and pass that data as props to client component 
+
+if you use revalidatepath then you cannot see toast

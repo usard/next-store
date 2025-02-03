@@ -44,10 +44,15 @@ export const imageSchema = z.object({
     image: validateImageFile()   
 })
 
+export const ReviewSchema = z.object({
+  rating:z.coerce.number().int().refine(value=> value>=0 && value <=5, 'rating must be between 1 and 5'),
+  comment:z.string().refine((text)=> text!== '', 'description cannot be empty')
+
+})
+
 export function validateWithZodSchema<T>(schema: ZodSchema<T>, data: unknown): T {
     const result = schema.safeParse(data);
     const errors = result.error?.errors.map((error)=> error.message).join(', ');
     if(!result.success) throw new Error(errors)
-    
     return result.data
 }

@@ -1,9 +1,15 @@
-import React from 'react'
+import { Rating } from '@mui/material';
+import React from 'react';
+import { getProductRating } from '@/utils/actions';
 
-function ProductRating() {
+async function ProductRating({id}:{id:string}) {
+  const {rating, count} = await getProductRating(id )
   return (
-    <div>ProductRating</div>
+    <div className='flex items-center gap-x-1'>
+      <Rating value={Number(rating)} readOnly />
+      <span>{`(${count})`}</span>
+    </div>
   )
 }
 
-export default ProductRating
+export default ProductRating;

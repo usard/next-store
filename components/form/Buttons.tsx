@@ -28,7 +28,7 @@ export const IconButton = ({actionType}:{actionType: actionType}) => {
   )
 }
 
-export const CardSignInButton = () => {
+export const CardSignInButton = ({children}:{children:React.ReactNode}) => {
 
   return (
     <SignInButton mode='modal'>
@@ -39,7 +39,7 @@ export const CardSignInButton = () => {
         className="p-2 cursor-pointer"
         asChild
       >
-        <FaRegHeart />
+       {children}
       </Button>
     </SignInButton>
   )

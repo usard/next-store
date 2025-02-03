@@ -1,3 +1,5 @@
+import { hostname } from "os";
+
 const nextConfig = {
   /* config options here */
   // images:{
@@ -22,6 +24,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'bqawosrndwoggwtypxlj.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.clerk.com',
       }
     ]
   }

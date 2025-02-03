@@ -5,9 +5,8 @@ import NavSearch from './NavSearch';
 import CartButton from './CartButton';
 import DarkMode from './DarkMode' 
 import LinksDropdown from './LinksDropdown';
-// import {useState, useEffect} from 'react';
-import  UserIcon  from './UserIcon';
 import { Suspense } from 'react';
+import { CardSignInButton } from '../form/Buttons';
 
 
 
@@ -46,7 +45,7 @@ function Navbar() {
                  : <NavSearch /> 
               } */}
             <div className='flex gap-4 items-center'>
-                <CartButton />
+                  <CartButton />
                 <DarkMode />
                 <div className='flex gap-2'>
                   {/* <UserIcon /> */}
